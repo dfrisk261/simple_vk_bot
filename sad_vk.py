@@ -1,6 +1,12 @@
 import vk_api
+
+
+
 from vk_api.longpoll import VkLongPoll, VkEventType
-key = "09c669d9e4b4b25bd5dffd1a5ccf3c5793d408fa87ae5df04ecb3e8244f1c179a8a38c6345b3869a7969f"
+
+from random import randint
+
+key ="2767b6f40dd752513111457a96caa1980352446dda9e1ec34ba844bae28a9a84149e305d06f4d0b2f192c" 
 # Авторизуемся как сообщество
 vk = vk_api.VkApi(token=key)
 
@@ -17,7 +23,7 @@ WHAT = """what?
             game
 кот
 """
-dev_id = 76904317
+dev_id = 632098697
 send_message(dev_id,' hi i am alive')
 debug = False
 # Работа с сообщениями
@@ -41,11 +47,45 @@ for event in longpoll.listen():
                             send_message(dev_id,i+' : '+str(eval('event.'+i)))
                     continue
             if text == "hello":
-                send_message(user_id, "Hi")
+                send_message(user_id, "hello")
+                
             elif text == "game":
-                send_message(user_id, "There is no game yet\n"+WHAT)
+                game_mode = True
+                chislo = randint(1,100)
+                send_message(user_id, "lets go!")
+
+            elif game_mode:
+                x = int(text)
+                if chislo < x:
+                    send_message(user_id, "моё число меньше (-) ")
+                elif chislo > x:
+                    send_message(user_id, "моё число больше (+) ")
+                elif chislo == x:
+                    send_message(user_id, "You are winner! I lose  :(")
+                    game_mode = False
+            
+                
             elif "кот" in text:
                 send_message(user_id, "мяу")
+                
+            elif "пока" in text:
+                send_message(user_id, "пока")
+
+            elif "ranster" in text:
+                send_message(user_id, "Error999999999999999999999999")
+
+            elif "почему ошибки" in text:
+                send_message(user_id, "Откуда мне знать?")
+
+            elif "спроси меня" in text:
+                send_message(user_id, "ок, как посмотреть мне на небо?")
+
+            elif "" in text:
+                send_message(user_id, "")
+
+                
+                
             else:
                 send_message(user_id, WHAT)
+                
             
